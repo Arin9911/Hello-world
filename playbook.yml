@@ -1,0 +1,17 @@
+- name: Configure Node.js application server
+  hosts: 65.0.11.218
+  become: yes
+
+  tasks:
+    - name: Pull Docker Image from DockerHub
+      docker_image:
+        name: arin10/helloworld-nodejs-app
+        tag: latest
+
+    - name: Run Docker Container
+      docker_container:
+        name: nodejs-app
+        image: arin10/helloworld-nodejs-app:latest
+        state: started
+        ports:
+          - "3000:3000"
